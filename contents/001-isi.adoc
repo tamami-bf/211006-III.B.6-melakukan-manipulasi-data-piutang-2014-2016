@@ -1,0 +1,71 @@
+
+== Data Asal 
+
+Basis data dengan _schema_ PBB pada sistem basis data Oracle.
+
+== Kegiatan Manipulasi Yang Dilakukan
+
+Melakukan pengambilan data piutang PBB-P2 tahun pajak 2014 sampai 2016 yang akan digunakan sebagai bahan untuk pembersihan data piutang.
+
+== Hasil Manipulasi
+
+Hasil manipulasi data dapat diakses pada alamat https://docs.google.com/spreadsheets/d/12zvv6Jqrp3Cs6xnKTwUwxSl2oplKDvRY05HqVDQzB24/edit?usp=sharing
+
+== _Script_ atau _command_ yang Digunakan Untuk Melakukan Manipulasi
+
+----
+select sppt.kd_propinsi||'.'||sppt.kd_dati2||'.'||sppt.kd_kecamatan||'.'||sppt.kd_kelurahan||'.'||sppt.kd_blok||'.'||
+  sppt.no_urut||'.'||sppt.kd_jns_op nop, nm_wp_sppt nama, luas_bumi_sppt luas_bumi, op.jalan_op||' '||op.blok_kav_no_op||' RT.'||
+  nvl(op.rt_op,'000')||'/RW.'||nvl(op.rw_op,'000') alamat_op
+from sppt
+join dat_objek_pajak op on (
+  op.kd_propinsi = sppt.kd_propinsi and
+  op.kd_dati2 = sppt.kd_dati2 and
+  op.kd_kecamatan = sppt.kd_kecamatan and
+  op.kd_kelurahan = sppt.kd_kelurahan and
+  op.kd_blok = sppt.kd_blok and
+  op.no_urut = sppt.no_urut and
+  op.kd_jns_op = sppt.kd_jns_op
+)
+where thn_pajak_sppt='2016'
+  and status_pembayaran_sppt in ('0','1')
+  order by sppt.kd_kecamatan, sppt.kd_kelurahan, sppt.kd_blok, sppt.no_urut
+----
+
+----
+select sppt.kd_propinsi||'.'||sppt.kd_dati2||'.'||sppt.kd_kecamatan||'.'||sppt.kd_kelurahan||'.'||sppt.kd_blok||'.'||
+  sppt.no_urut||'.'||sppt.kd_jns_op nop, nm_wp_sppt nama, luas_bumi_sppt luas_bumi, op.jalan_op||' '||op.blok_kav_no_op||' RT.'||
+  nvl(op.rt_op,'000')||'/RW.'||nvl(op.rw_op,'000') alamat_op
+from sppt
+join dat_objek_pajak op on (
+  op.kd_propinsi = sppt.kd_propinsi and
+  op.kd_dati2 = sppt.kd_dati2 and
+  op.kd_kecamatan = sppt.kd_kecamatan and
+  op.kd_kelurahan = sppt.kd_kelurahan and
+  op.kd_blok = sppt.kd_blok and
+  op.no_urut = sppt.no_urut and
+  op.kd_jns_op = sppt.kd_jns_op
+)
+where thn_pajak_sppt='2015'
+  and status_pembayaran_sppt in ('0','1')
+  order by sppt.kd_kecamatan, sppt.kd_kelurahan, sppt.kd_blok, sppt.no_urut
+----
+
+----
+select sppt.kd_propinsi||'.'||sppt.kd_dati2||'.'||sppt.kd_kecamatan||'.'||sppt.kd_kelurahan||'.'||sppt.kd_blok||'.'||
+  sppt.no_urut||'.'||sppt.kd_jns_op nop, nm_wp_sppt nama, luas_bumi_sppt luas_bumi, op.jalan_op||' '||op.blok_kav_no_op||' RT.'||
+  nvl(op.rt_op,'000')||'/RW.'||nvl(op.rw_op,'000') alamat_op
+from sppt
+join dat_objek_pajak op on (
+  op.kd_propinsi = sppt.kd_propinsi and
+  op.kd_dati2 = sppt.kd_dati2 and
+  op.kd_kecamatan = sppt.kd_kecamatan and
+  op.kd_kelurahan = sppt.kd_kelurahan and
+  op.kd_blok = sppt.kd_blok and
+  op.no_urut = sppt.no_urut and
+  op.kd_jns_op = sppt.kd_jns_op
+)
+where thn_pajak_sppt='2014'
+  and status_pembayaran_sppt in ('0','1')
+  order by sppt.kd_kecamatan, sppt.kd_kelurahan, sppt.kd_blok, sppt.no_urut
+----
